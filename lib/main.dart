@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -30,6 +28,7 @@ class EmailForm extends StatefulWidget
 // This class holds the data related to the Form.
 class _EmailFormState extends State<EmailForm>
 {
+  bool validuser = false;
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final myController = TextEditingController();
@@ -51,57 +50,109 @@ class _EmailFormState extends State<EmailForm>
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold
-    (
-      appBar: AppBar
-      (
-        title: const Text('Email Form'),
-      ),
-      body: Padding
-      (
-        padding: const EdgeInsets.all(32.0),
-        child: Column
+    if(!validuser)
+    {
+      return Scaffold
         (
-          children:
-          [
-            TextFormField
-            (
-            controller: myController,
-            decoration: const InputDecoration
-              (
-                border: OutlineInputBorder(),
-                hintText: 'Email'
-              ),
-            ),
-          OutlinedButton
+        appBar: AppBar
           (
-            onPressed: ()
-            {
-              checkUser(users,myController.text);
-            },
-            child: const Text('Submit'),
-          ),
-          ]
+          title: const Text('Email Form'),
         ),
-      ),
-    );
+        body: Padding
+          (
+          padding: const EdgeInsets.all(32.0),
+          child: Column
+            (
+              children:
+              [
+                TextFormField
+                  (
+                  controller: myController,
+                  decoration: const InputDecoration
+                    (
+                      border: OutlineInputBorder(),
+                      hintText: 'Email'
+                  ),
+                ),
+                OutlinedButton
+                  (
+                  onPressed: ()
+                  {
+                    validuser = checkUser(users,myController.text);
+                  },
+                  child: const Text('Submit'),
+                ),
+              ]
+          ),
+        ),
+      );
+    }
+    else
+    {
+      return user_data;
+    }
   }
 }
 
-void checkUser(List<User> users, String text)
+bool checkUser(List<User> users, String text)
 {
   for(int i = 0; i < users.length;i++)
     {
       if(users[i].email == text)
       {
         print("találat");
+        return true;
       }
       else
       {
         print("nincs találat");
+        return false;
       }
     }
+  return false;
 }
+
+ListView user_data = ListView(
+  padding: const EdgeInsets.all(8),
+  children: <Widget>
+  [
+    // email
+    Container
+    (
+      height: 50,
+      color: Colors.amber[600],
+      child: const Center(child: Text('Entry A')),
+    ),
+    // username
+    Container
+    (
+      height: 50,
+      color: Colors.amber[500],
+      child: const Center(child: Text('Entry B')),
+    ),
+    // age
+    Container
+    (
+      height: 50,
+      color: Colors.amber[400],
+      child: const Center(child: Text('Entry C')),
+    ),
+    // gender
+    Container
+      (
+      height: 50,
+      color: Colors.amber[300],
+      child: const Center(child: Text('Entry C')),
+    ),
+    // real name
+    Container
+      (
+      height: 50,
+      color: Colors.amber[200],
+      child: const Center(child: Text('Entry C')),
+    ),
+  ],
+);
 
 class User
 {
