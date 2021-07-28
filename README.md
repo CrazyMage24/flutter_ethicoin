@@ -2,6 +2,9 @@
 
 EthiCoin feladata szombatig
 
+-authentication_state.dart-ban a konstans hiba kijavítása
+-home_page.dart-ban folytatás
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
