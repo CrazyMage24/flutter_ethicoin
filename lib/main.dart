@@ -24,6 +24,7 @@ class MyBloc extends Bloc<Event, BlocState>
 {
   String email = "";
   String username = "";
+  String label = "";
   int userindex = 0;
 
   /// Konkrét Userek listája
@@ -74,6 +75,11 @@ class MyBloc extends Bloc<Event, BlocState>
     _usernameController.close();
   }
 
+  getlabel()
+  {
+    return label;
+  }
+
   /// home page-n kezdünk
   MyBloc() : super(HomeState());
 
@@ -107,11 +113,12 @@ class MyBloc extends Bloc<Event, BlocState>
       if(username.length < 6 && user.username != username)
       {
         print("too short");
-
+        label = "too short";
       }
       else if(username.length > 20 && user.username != username)
       {
         print("too long");
+        label = "too long";
       }
       else
       {
@@ -331,7 +338,20 @@ class UserEditInfo extends StatelessWidget
                         Future.delayed(Duration(milliseconds: 2000), () => BlocProvider.of<MyBloc>(context).add(Event.editSave));
                       }
                   ),
-                )
+                ),
+                Center
+                  (
+                  child: Text
+                  (
+                    BlocProvider.of<MyBloc>(context).getlabel(),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.red[600],
+                    ),
+                  )
+                ),
               ],
             )
         ),
