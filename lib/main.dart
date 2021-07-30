@@ -35,6 +35,7 @@ class MyBloc extends Bloc<Event, BlocState>
     new User("asd", "asd", 50, "male", "Josef"),
   ];
 
+  /// létezik-e az emailhez tartozó user
   bool UserExists()
   {
     for(int i = 0; i < users.length; i++)
@@ -48,6 +49,7 @@ class MyBloc extends Bloc<Event, BlocState>
     return false;
   }
 
+  /// emailhez tartozó user visszaadása
   User returnUser()
   {
     return users[userindex];
@@ -94,6 +96,7 @@ class MyBloc extends Bloc<Event, BlocState>
     }
     else if(event == Event.login)
     {
+      /// ha létezik a user, akkor loginoljunk be
       if(UserExists())
       {
         print("login");
@@ -138,17 +141,6 @@ class MyApp extends StatelessWidget
       /// State alapján jelenítjük meg a page-t
       home: BlocBuilder<MyBloc, BlocState>(
           builder: (_, state) => (state is HomeState ? HomePage() : (state is LoginState ? LoginPage() : EditPage()))
-        /*{
-          if (state is LoginState)
-          {
-            LoginPage();
-          }
-          else if (state is EditState)
-          {
-            EditPage();
-          }
-          HomePage();
-        }*/
       ),
     );
   }
@@ -207,7 +199,6 @@ class LoginPage extends StatelessWidget
 
 class UserInfo extends StatelessWidget
 {
-
   @override
   Widget build(BuildContext context)
   {
@@ -290,7 +281,6 @@ class EditPage extends StatelessWidget
 
 class UserEditInfo extends StatelessWidget
 {
-
   @override
   Widget build(BuildContext context)
   {
