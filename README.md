@@ -4,7 +4,6 @@ EthiCoin feladata szombatig
 
 TODO:
   - Oldal ne legyen reszponzív töltés közben
-  - Username-ikon páros kerüljön középre
   - Hibás username írásakor label írjon hibaüzenetet
 
 ## Getting Started
