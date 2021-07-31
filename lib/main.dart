@@ -55,11 +55,6 @@ class MyBloc extends Bloc<Event, BlocState>
     return users[userindex];
   }
 
-  /// email input mezője
-  final _emailController = StreamController<String>();
-  /// username input mezője
-  final _usernameController = StreamController<String>();
-
   updateEmail(String text) {
     this.email = text;
   }
@@ -67,14 +62,6 @@ class MyBloc extends Bloc<Event, BlocState>
   updateUsername(String text)
   {
     this.username = text;
-  }
-
-  disposeEmail() {
-    _emailController.close();
-  }
-
-  disposeUsername() {
-    _usernameController.close();
   }
 
   getlabel()
@@ -126,6 +113,7 @@ class MyBloc extends Bloc<Event, BlocState>
       else
       {
         print("accepted");
+        label = "";
         users[userindex].username = username;
         yield LoginState();
       }
@@ -172,10 +160,12 @@ class HomePage extends StatelessWidget
           ,
           ElevatedButton
             (
+
             child: Text('Log in'),
             onPressed: ()
             {
               Future.delayed(Duration(milliseconds: 2000), () => BlocProvider.of<MyBloc>(context).add(Event.login));
+
             },
           ),
         ],
@@ -217,10 +207,11 @@ class UserInfo extends StatelessWidget
             color: Colors.amber[400],
             child: Row
               (
+              mainAxisAlignment: MainAxisAlignment.center,
               children:
               [
                 Center
-                  (
+                (
                   child: Text(user.username),
                 ),
                 Center
@@ -300,6 +291,7 @@ class UserEditInfo extends StatelessWidget
             color: Colors.amber[400],
             child: Row
               (
+              mainAxisAlignment: MainAxisAlignment.center,
               children:
               [
                 Container(
@@ -330,14 +322,14 @@ class UserEditInfo extends StatelessWidget
                   ),
                 ),
                 Center
-                  (
+                (
                   child: Text
                   (
                     BlocProvider.of<MyBloc>(context).getlabel(),
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 32,
                       color: Colors.red[600],
                     ),
                   )
